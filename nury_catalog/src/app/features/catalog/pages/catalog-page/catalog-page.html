@@ -1,0 +1,58 @@
+<section class="bg-base-100">
+  <div class="mx-auto grid max-w-7xl gap-8 px-4 py-8 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 lg:py-12">
+    <div class="flex flex-col justify-center">
+      <div class="mb-4 flex flex-wrap gap-2">
+        <span class="badge badge-primary">Venta</span>
+        <span class="badge badge-outline">Renta</span>
+        <span class="badge badge-outline">Guatemala</span>
+      </div>
+      <h1 class="max-w-3xl text-4xl font-bold leading-tight text-base-content sm:text-5xl">
+        Propiedades listas para compartir por WhatsApp
+      </h1>
+      <p class="mt-4 max-w-2xl text-base leading-7 text-base-content/65">
+        Explora casas, apartamentos y terrenos en una experiencia pensada para celular, con fotos, detalles y contacto directo.
+      </p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a class="btn btn-primary" href="#catalogo">Ver propiedades</a>
+        <a class="btn btn-outline" routerLink="/admin/propiedades/nueva">Agregar propiedad</a>
+      </div>
+    </div>
+
+    @if (featured[0]; as heroProperty) {
+      <article class="overflow-hidden rounded-box border border-base-300 bg-base-200 shadow-sm">
+        <img class="aspect-[4/3] w-full object-cover" [src]="heroProperty.images[0]" [alt]="heroProperty.title" />
+        <div class="space-y-3 p-5">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <p class="text-sm font-semibold text-primary">{{ heroProperty.id }}</p>
+              <h2 class="text-xl font-semibold">{{ heroProperty.title }}</h2>
+            </div>
+            <span class="badge badge-success">{{ heroProperty.status }}</span>
+          </div>
+          <p class="text-sm text-base-content/65">{{ heroProperty.description }}</p>
+        </div>
+      </article>
+    }
+  </div>
+</section>
+
+<section id="catalogo" class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+  <div class="mb-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+    <div>
+      <p class="text-sm font-semibold uppercase tracking-wide text-primary">Catálogo</p>
+      <h2 class="text-2xl font-bold">Propiedades disponibles</h2>
+    </div>
+    <div class="flex flex-wrap gap-2">
+      <button class="btn btn-sm btn-primary">Todas</button>
+      <button class="btn btn-sm btn-ghost">Apartamentos</button>
+      <button class="btn btn-sm btn-ghost">Casas</button>
+      <button class="btn btn-sm btn-ghost">Terrenos</button>
+    </div>
+  </div>
+
+  <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+    @for (property of properties; track property.id) {
+      <app-property-card [property]="property" />
+    }
+  </div>
+</section>

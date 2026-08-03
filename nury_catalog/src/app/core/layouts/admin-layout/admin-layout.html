@@ -1,0 +1,62 @@
+<div class="min-h-dvh bg-base-200 lg:grid lg:grid-cols-[280px_1fr]">
+  <aside class="border-b border-base-300 bg-base-100 lg:min-h-dvh lg:border-b-0 lg:border-r">
+    <div class="flex h-full flex-col">
+      <div class="flex items-center justify-between gap-3 border-b border-base-300 px-5 py-4">
+        <a routerLink="/admin" class="flex items-center gap-3">
+          <span class="grid h-10 w-10 place-items-center rounded-lg bg-primary text-lg font-bold text-primary-content">
+            N
+          </span>
+          <span>
+            <span class="block text-sm font-semibold leading-4">Admin Nury</span>
+            <span class="block text-xs text-base-content/55">Gestión visual</span>
+          </span>
+        </a>
+        <a class="btn btn-ghost btn-sm lg:hidden" routerLink="/propiedades">Catálogo</a>
+      </div>
+
+      <nav class="flex-1 px-3 py-4">
+        <ul class="menu gap-1">
+          <li>
+            <a routerLink="/admin" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+              Panel
+            </a>
+          </li>
+          <li>
+            <a routerLink="/admin/propiedades" routerLinkActive="active">
+              Propiedades
+            </a>
+          </li>
+          <li>
+            <a routerLink="/admin/propiedades/nueva" routerLinkActive="active">
+              Nueva propiedad
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="hidden border-t border-base-300 p-4 lg:block">
+        <a class="btn btn-outline btn-sm w-full" routerLink="/propiedades">Ver catálogo público</a>
+      </div>
+    </div>
+  </aside>
+
+  <div class="min-w-0">
+    <header class="border-b border-base-300 bg-base-100 px-4 py-4 sm:px-6 lg:px-8">
+      <div class="mx-auto flex max-w-6xl items-center justify-between gap-4">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-wide text-primary">Área administrativa</p>
+          <h1 class="text-xl font-semibold">Catálogo Inmobiliario Nury</h1>
+        </div>
+        <div class="avatar placeholder">
+          <div class="w-10 rounded-full bg-neutral text-neutral-content">
+            <span>N</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:px-8">
+      <router-outlet />
+    </main>
+  </div>
+</div>

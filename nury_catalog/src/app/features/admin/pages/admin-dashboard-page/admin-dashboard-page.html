@@ -1,0 +1,37 @@
+<section class="space-y-6">
+  <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+    <div>
+      <p class="text-sm font-semibold uppercase tracking-wide text-primary">Resumen</p>
+      <h2 class="text-2xl font-bold">Panel del catálogo</h2>
+      <p class="mt-1 text-sm text-base-content/60">Vista inicial para controlar propiedades, estados y publicaciones.</p>
+    </div>
+    <a class="btn btn-primary" routerLink="/admin/propiedades/nueva">Nueva propiedad</a>
+  </div>
+
+  <div class="grid gap-4 md:grid-cols-3">
+    <div class="stat rounded-box border border-base-300 bg-base-100">
+      <div class="stat-title">Propiedades</div>
+      <div class="stat-value text-primary">{{ total }}</div>
+      <div class="stat-desc">Registradas en catálogo</div>
+    </div>
+    <div class="stat rounded-box border border-base-300 bg-base-100">
+      <div class="stat-title">Disponibles</div>
+      <div class="stat-value text-success">{{ available }}</div>
+      <div class="stat-desc">Visibles para clientes</div>
+    </div>
+    <div class="stat rounded-box border border-base-300 bg-base-100">
+      <div class="stat-title">Reservadas</div>
+      <div class="stat-value">{{ reserved }}</div>
+      <div class="stat-desc">Pendientes de seguimiento</div>
+    </div>
+  </div>
+
+  <div class="rounded-box border border-base-300 bg-base-100 p-5">
+    <h3 class="text-lg font-semibold">Accesos rápidos</h3>
+    <div class="mt-4 grid gap-3 md:grid-cols-3">
+      <a class="btn btn-outline justify-start" routerLink="/admin/propiedades">Administrar propiedades</a>
+      <a class="btn btn-outline justify-start" routerLink="/admin/propiedades/nueva">Agregar nueva propiedad</a>
+      <a class="btn btn-outline justify-start" routerLink="/propiedades">Ver catálogo público</a>
+    </div>
+  </div>
+</section>
