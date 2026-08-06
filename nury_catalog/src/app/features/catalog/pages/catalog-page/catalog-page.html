@@ -1,58 +1,167 @@
 <section class="bg-base-100">
-  <div class="mx-auto grid max-w-7xl gap-8 px-4 py-8 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 lg:py-12">
+  <div class="mx-auto grid max-w-7xl gap-8 px-4 py-8 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:py-12">
     <div class="flex flex-col justify-center">
       <div class="mb-4 flex flex-wrap gap-2">
-        <span class="badge badge-primary">Venta</span>
-        <span class="badge badge-outline">Renta</span>
-        <span class="badge badge-outline">Guatemala</span>
+        <span class="badge badge-primary">Catálogo web</span>
+        <span class="badge badge-outline">Consulta por WhatsApp</span>
+        <span class="badge badge-outline">Fotos disponibles</span>
       </div>
+
       <h1 class="max-w-3xl text-4xl font-bold leading-tight text-base-content sm:text-5xl">
-        Propiedades listas para compartir por WhatsApp
+        Propiedades seleccionadas para consultar directo con Nury
       </h1>
+
       <p class="mt-4 max-w-2xl text-base leading-7 text-base-content/65">
-        Explora casas, apartamentos y terrenos en una experiencia pensada para celular, con fotos, detalles y contacto directo.
+        Revisa opciones por categoría, mira las fotos principales y solicita los detalles completos por WhatsApp.
       </p>
+
       <div class="mt-6 flex flex-wrap gap-3">
-        <a class="btn btn-primary" href="#catalogo">Ver propiedades</a>
-        <a class="btn btn-outline" routerLink="/admin/propiedades/nueva">Agregar propiedad</a>
+        <a class="btn btn-primary" href="#catalogo">Ver catálogo</a>
+        <a class="btn btn-outline" href="https://wa.me/50200000000" target="_blank" rel="noopener">
+          Hablar con Nury
+        </a>
       </div>
     </div>
 
     @if (featured[0]; as heroProperty) {
-      <article class="overflow-hidden rounded-box border border-base-300 bg-base-200 shadow-sm">
-        <img class="aspect-[4/3] w-full object-cover" [src]="heroProperty.images[0]" [alt]="heroProperty.title" />
-        <div class="space-y-3 p-5">
-          <div class="flex items-start justify-between gap-3">
-            <div>
-              <p class="text-sm font-semibold text-primary">{{ heroProperty.id }}</p>
-              <h2 class="text-xl font-semibold">{{ heroProperty.title }}</h2>
-            </div>
+      <a
+        class="group overflow-hidden rounded-box border border-base-300 bg-base-200 text-base-content no-underline shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+        [routerLink]="['/propiedades', heroProperty.slug]"
+      >
+        <figure class="relative aspect-[4/3] overflow-hidden bg-base-200">
+          <img
+            class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+            [src]="heroProperty.images[0]"
+            [alt]="heroProperty.title"
+          />
+          <div class="absolute left-4 top-4 flex flex-wrap gap-2">
+            <span class="badge badge-primary">{{ heroProperty.categoryLabel }}</span>
             <span class="badge badge-success">{{ heroProperty.status }}</span>
           </div>
-          <p class="text-sm text-base-content/65">{{ heroProperty.description }}</p>
+        </figure>
+
+        <div class="space-y-3 p-5">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-wide text-primary">Destacado</p>
+            <h2 class="mt-1 text-xl font-semibold">{{ heroProperty.title }}</h2>
+          </div>
+          <p class="text-sm leading-6 text-base-content/65">{{ heroProperty.teaser }}</p>
+          <span class="btn btn-primary btn-sm pointer-events-none">Ver fotos y contactar</span>
         </div>
-      </article>
+      </a>
     }
   </div>
 </section>
 
 <section id="catalogo" class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-  <div class="mb-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+  <div class="mb-6 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
     <div>
-      <p class="text-sm font-semibold uppercase tracking-wide text-primary">Catálogo</p>
-      <h2 class="text-2xl font-bold">Propiedades disponibles</h2>
+      <p class="text-sm font-semibold uppercase tracking-wide text-primary">Categorías</p>
+      <h2 class="text-2xl font-bold">Catálogo disponible</h2>
+      <p class="mt-1 text-sm text-base-content/60">
+        Filtros basados en las carpetas de imágenes de la inmobiliaria.
+      </p>
     </div>
-    <div class="flex flex-wrap gap-2">
-      <button class="btn btn-sm btn-primary">Todas</button>
-      <button class="btn btn-sm btn-ghost">Apartamentos</button>
-      <button class="btn btn-sm btn-ghost">Casas</button>
-      <button class="btn btn-sm btn-ghost">Terrenos</button>
+
+    <button class="btn btn-ghost btn-sm w-fit" type="button" (click)="clearFilters()">
+      Limpiar filtros
+    </button>
+  </div>
+
+  <div class="mb-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+    <button
+      type="button"
+      class="rounded-box border p-4 text-left transition hover:-translate-y-0.5 hover:shadow-sm"
+      [class.border-primary]="selectedCategory() === 'all'"
+      [class.bg-primary]="selectedCategory() === 'all'"
+      [class.text-primary-content]="selectedCategory() === 'all'"
+      [class.border-base-300]="selectedCategory() !== 'all'"
+      [class.bg-base-100]="selectedCategory() !== 'all'"
+      (click)="selectCategory('all')"
+    >
+      <span class="text-sm font-semibold">Todas las propiedades</span>
+      <span class="mt-1 block text-xs opacity-70">{{ visibleCount() }} resultados visibles</span>
+    </button>
+
+    @for (category of categories; track category.id) {
+      <button
+        type="button"
+        class="rounded-box border p-4 text-left transition hover:-translate-y-0.5 hover:shadow-sm"
+        [class.border-primary]="selectedCategory() === category.id"
+        [class.bg-primary]="selectedCategory() === category.id"
+        [class.text-primary-content]="selectedCategory() === category.id"
+        [class.border-base-300]="selectedCategory() !== category.id"
+        [class.bg-base-100]="selectedCategory() !== category.id"
+        (click)="selectCategory(category.id)"
+      >
+        <span class="text-sm font-semibold">{{ category.label }}</span>
+        <span class="mt-1 block text-xs opacity-70">
+          {{ countByCategory(category.id) }} opciones
+        </span>
+      </button>
+    }
+  </div>
+
+  <div class="mb-6 rounded-box border border-base-300 bg-base-100 p-4 shadow-sm">
+    <div class="grid gap-3 md:grid-cols-[1fr_180px_180px]">
+      <label class="form-control">
+        <span class="label-text">Buscar por zona o nombre</span>
+        <input
+          class="input input-bordered"
+          type="search"
+          placeholder="Ej. Zona 14, casa, oficina..."
+          [value]="searchTerm()"
+          (input)="setSearchTerm($any($event.target).value)"
+        />
+      </label>
+
+      <label class="form-control">
+        <span class="label-text">Operación</span>
+        <select
+          class="select select-bordered"
+          [value]="selectedOperation()"
+          (change)="selectOperation($any($event.target).value)"
+        >
+          <option value="all">Todas</option>
+          <option value="Venta">Venta</option>
+          <option value="Renta">Renta</option>
+        </select>
+      </label>
+
+      <label class="form-control">
+        <span class="label-text">Estado</span>
+        <select
+          class="select select-bordered"
+          [value]="selectedStatus()"
+          (change)="selectStatus($any($event.target).value)"
+        >
+          <option value="all">Todos</option>
+          <option value="Disponible">Disponible</option>
+          <option value="Reservado">Reservado</option>
+          <option value="Vendido">Vendido</option>
+        </select>
+      </label>
     </div>
   </div>
 
-  <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-    @for (property of properties; track property.id) {
-      <app-property-card [property]="property" />
-    }
+  <div class="mb-4 flex items-center justify-between gap-4">
+    <p class="text-sm text-base-content/60">
+      Mostrando <span class="font-semibold text-base-content">{{ visibleCount() }}</span> propiedades.
+    </p>
+    <p class="hidden text-sm text-base-content/50 sm:block">Información completa bajo consulta.</p>
   </div>
+
+  @if (filteredProperties().length > 0) {
+    <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+      @for (property of filteredProperties(); track property.id) {
+        <app-property-card [property]="property" />
+      }
+    </div>
+  } @else {
+    <div class="rounded-box border border-dashed border-base-300 bg-base-100 p-8 text-center">
+      <h3 class="text-lg font-semibold">No hay propiedades con esos filtros</h3>
+      <p class="mt-2 text-sm text-base-content/60">Prueba otra categoría o consulta directamente con Nury.</p>
+      <button class="btn btn-primary btn-sm mt-4" type="button" (click)="clearFilters()">Ver todas</button>
+    </div>
+  }
 </section>

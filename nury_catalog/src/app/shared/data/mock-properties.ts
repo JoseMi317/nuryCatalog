@@ -1,10 +1,51 @@
-import { Property } from '../models/property.model';
+import { Property, PropertyCategory } from '../models/property.model';
+
+export const PROPERTY_CATEGORIES: PropertyCategory[] = [
+  {
+    id: 'apartamento-venta',
+    label: 'Apartamento Venta',
+    shortLabel: 'Aptos. venta',
+    description: 'Apartamentos disponibles para compra.'
+  },
+  {
+    id: 'apartamento-renta',
+    label: 'Apartamentos en Renta',
+    shortLabel: 'Aptos. renta',
+    description: 'Opciones de apartamento para alquilar.'
+  },
+  {
+    id: 'casa-renta',
+    label: 'Casas en Renta',
+    shortLabel: 'Casas renta',
+    description: 'Casas listas para vivir en renta.'
+  },
+  {
+    id: 'casa-venta',
+    label: 'Casas Venta',
+    shortLabel: 'Casas venta',
+    description: 'Casas disponibles para compra.'
+  },
+  {
+    id: 'oficina',
+    label: 'Oficinas',
+    shortLabel: 'Oficinas',
+    description: 'Espacios comerciales y oficinas.'
+  },
+  {
+    id: 'proyecto',
+    label: 'Proyectos',
+    shortLabel: 'Proyectos',
+    description: 'Desarrollos inmobiliarios en promoción.'
+  }
+];
 
 export const MOCK_PROPERTIES: Property[] = [
   {
     id: 'NUR-001',
     slug: 'apartamento-vista-hermosa',
-    title: 'Apartamento moderno en Vista Hermosa',
+    title: 'Apartamento en Vista Hermosa',
+    categoryId: 'apartamento-venta',
+    categoryLabel: 'Apartamento Venta',
     type: 'Apartamento',
     operation: 'Venta',
     status: 'Disponible',
@@ -16,6 +57,7 @@ export const MOCK_PROPERTIES: Property[] = [
     parking: 2,
     description:
       'Apartamento con excelente iluminación natural, ambientes integrados y amenidades ideales para familias o inversión.',
+    teaser: 'Vista amplia, ubicación práctica y amenidades de edificio.',
     amenities: ['Gimnasio', 'Piscina', 'Seguridad 24/7', 'Salón social'],
     images: [
       'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
@@ -26,50 +68,10 @@ export const MOCK_PROPERTIES: Property[] = [
   },
   {
     id: 'NUR-002',
-    slug: 'casa-familiar-carretera',
-    title: 'Casa familiar en Carretera a El Salvador',
-    type: 'Casa',
-    operation: 'Venta',
-    status: 'Disponible',
-    location: 'Km 16.5, Carretera a El Salvador',
-    price: '$320,000',
-    area: 245,
-    bedrooms: 4,
-    bathrooms: 3,
-    parking: 3,
-    description:
-      'Casa amplia con jardín, sala familiar y espacios cómodos para una familia que busca privacidad y buena ubicación.',
-    amenities: ['Jardín', 'Pérgola', 'Área de servicio', 'Condominio privado'],
-    images: [
-      'https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=1200&q=80'
-    ]
-  },
-  {
-    id: 'NUR-003',
-    slug: 'terreno-san-jose-pinula',
-    title: 'Terreno residencial en San José Pinula',
-    type: 'Terreno',
-    operation: 'Venta',
-    status: 'Reservado',
-    location: 'San José Pinula',
-    price: '$95,000',
-    area: 650,
-    bedrooms: 0,
-    bathrooms: 0,
-    parking: 0,
-    description:
-      'Terreno con topografía aprovechable dentro de sector residencial tranquilo, ideal para construcción de vivienda.',
-    amenities: ['Acceso controlado', 'Entorno residencial', 'Servicios cercanos'],
-    images: [
-      'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80'
-    ]
-  },
-  {
-    id: 'NUR-004',
     slug: 'apartamento-zona-catorce',
-    title: 'Apartamento premium en Zona 14',
+    title: 'Apartamento en Zona 14',
+    categoryId: 'apartamento-renta',
+    categoryLabel: 'Apartamentos en Renta',
     type: 'Apartamento',
     operation: 'Renta',
     status: 'Disponible',
@@ -81,11 +83,157 @@ export const MOCK_PROPERTIES: Property[] = [
     parking: 2,
     description:
       'Apartamento listo para habitar, con acabados modernos y cercanía a comercios, restaurantes y vías principales.',
+    teaser: 'Opción lista para habitar con excelente conectividad.',
     amenities: ['Lobby', 'Coworking', 'Terraza', 'Pet friendly'],
     images: [
       'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=80',
       'https://images.unsplash.com/photo-1600607688066-890987f18a86?auto=format&fit=crop&w=1200&q=80'
     ],
     featured: true
+  },
+  {
+    id: 'NUR-003',
+    slug: 'casa-en-renta-carretera',
+    title: 'Casa en renta en Carretera',
+    categoryId: 'casa-renta',
+    categoryLabel: 'Casas en Renta',
+    type: 'Casa',
+    operation: 'Renta',
+    status: 'Disponible',
+    location: 'Carretera a El Salvador',
+    price: '$1,800/mes',
+    area: 220,
+    bedrooms: 4,
+    bathrooms: 3,
+    parking: 3,
+    description:
+      'Casa amplia en sector residencial, con ambientes cómodos y espacios pensados para vida familiar.',
+    teaser: 'Casa amplia en sector privado, ideal para familia.',
+    amenities: ['Jardín', 'Pérgola', 'Área de servicio', 'Condominio privado'],
+    images: [
+      'https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=1200&q=80'
+    ]
+  },
+  {
+    id: 'NUR-004',
+    slug: 'casa-en-venta-fraijanes',
+    title: 'Casa en venta en Fraijanes',
+    categoryId: 'casa-venta',
+    categoryLabel: 'Casas Venta',
+    type: 'Casa',
+    operation: 'Venta',
+    status: 'Disponible',
+    location: 'Fraijanes',
+    price: '$295,000',
+    area: 260,
+    bedrooms: 4,
+    bathrooms: 3,
+    parking: 2,
+    description:
+      'Casa con diseño contemporáneo, espacios sociales amplios y ubicación tranquila dentro de condominio.',
+    teaser: 'Diseño moderno, espacios amplios y entorno tranquilo.',
+    amenities: ['Condominio', 'Área verde', 'Seguridad', 'Sala familiar'],
+    images: [
+      'https://images.unsplash.com/photo-1600047509358-9dc75507daeb?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?auto=format&fit=crop&w=1200&q=80'
+    ],
+    featured: true
+  },
+  {
+    id: 'NUR-005',
+    slug: 'oficina-zona-diez',
+    title: 'Oficina en zona corporativa',
+    categoryId: 'oficina',
+    categoryLabel: 'Oficinas',
+    type: 'Oficina',
+    operation: 'Renta',
+    status: 'Disponible',
+    location: 'Zona 10, Guatemala',
+    price: 'Consultar',
+    area: 80,
+    bedrooms: 0,
+    bathrooms: 1,
+    parking: 2,
+    description:
+      'Espacio de oficina ubicado en sector empresarial, con accesos principales y parqueos disponibles.',
+    teaser: 'Espacio profesional en zona de alto movimiento.',
+    amenities: ['Recepción', 'Elevadores', 'Parqueo', 'Seguridad'],
+    images: [
+      'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=80'
+    ]
+  },
+  {
+    id: 'NUR-006',
+    slug: 'proyecto-residencial-premium',
+    title: 'Proyecto residencial premium',
+    categoryId: 'proyecto',
+    categoryLabel: 'Proyectos',
+    type: 'Proyecto',
+    operation: 'Venta',
+    status: 'Disponible',
+    location: 'Sector Oriente',
+    price: 'Desde consultar',
+    area: 0,
+    bedrooms: 0,
+    bathrooms: 0,
+    parking: 0,
+    description:
+      'Proyecto inmobiliario con diferentes opciones residenciales y amenidades planificadas para estilo de vida moderno.',
+    teaser: 'Nuevo desarrollo con opciones por etapa y disponibilidad.',
+    amenities: ['Amenidades', 'Etapas disponibles', 'Financiamiento', 'Asesoría'],
+    images: [
+      'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?auto=format&fit=crop&w=1200&q=80'
+    ]
+  },
+  {
+    id: 'NUR-007',
+    slug: 'apartamento-inversion-zona-diez',
+    title: 'Apartamento para inversión',
+    categoryId: 'apartamento-venta',
+    categoryLabel: 'Apartamento Venta',
+    type: 'Apartamento',
+    operation: 'Venta',
+    status: 'Reservado',
+    location: 'Zona 10, Guatemala',
+    price: '$145,000',
+    area: 72,
+    bedrooms: 2,
+    bathrooms: 2,
+    parking: 1,
+    description:
+      'Apartamento compacto con buena ubicación y perfil atractivo para inversión o renta posterior.',
+    teaser: 'Opción compacta con alta demanda por ubicación.',
+    amenities: ['Lobby', 'Parqueo', 'Seguridad', 'Área social'],
+    images: [
+      'https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1200&q=80'
+    ]
+  },
+  {
+    id: 'NUR-008',
+    slug: 'casa-venta-san-cristobal',
+    title: 'Casa en San Cristóbal',
+    categoryId: 'casa-venta',
+    categoryLabel: 'Casas Venta',
+    type: 'Casa',
+    operation: 'Venta',
+    status: 'Disponible',
+    location: 'San Cristóbal',
+    price: '$210,000',
+    area: 190,
+    bedrooms: 3,
+    bathrooms: 2,
+    parking: 2,
+    description:
+      'Casa funcional en sector residencial, con distribución cómoda y acceso a servicios principales.',
+    teaser: 'Casa práctica en sector residencial consolidado.',
+    amenities: ['Patio', 'Sala familiar', 'Parqueos', 'Servicios cercanos'],
+    images: [
+      'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1576941089067-2de3c901e126?auto=format&fit=crop&w=1200&q=80'
+    ]
   }
 ];

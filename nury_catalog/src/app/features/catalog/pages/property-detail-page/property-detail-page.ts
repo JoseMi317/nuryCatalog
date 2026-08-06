@@ -16,4 +16,11 @@ export class PropertyDetailPage {
     const slug = this.route.snapshot.paramMap.get('slug');
     return MOCK_PROPERTIES.find((property) => property.slug === slug) ?? MOCK_PROPERTIES[0];
   });
+
+  protected readonly contactHref = computed(() => {
+    const property = this.property();
+    const message = `Hola Nury, me interesa recibir más información de ${property.id} - ${property.title}.`;
+
+    return `https://wa.me/50200000000?text=${encodeURIComponent(message)}`;
+  });
 }
