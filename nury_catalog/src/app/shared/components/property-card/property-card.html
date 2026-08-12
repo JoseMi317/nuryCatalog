@@ -1,34 +1,38 @@
 <a
-  class="group card h-full overflow-hidden border border-base-300 bg-base-100 text-base-content no-underline shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+  class="property-card-link"
   [routerLink]="['/propiedades', property().slug]"
   [attr.aria-label]="'Ver propiedad ' + property().title"
 >
-  <figure class="relative aspect-[4/3] bg-base-200">
-    <img
-      class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-      [src]="property().images[0]"
-      [alt]="property().title"
-    />
-    <div class="absolute inset-x-0 top-0 flex items-start justify-between gap-2 p-3">
-      <span class="badge badge-primary shadow-sm">{{ property().categoryLabel }}</span>
-      <span class="badge bg-base-100/90 shadow-sm" [class.badge-success]="property().status === 'Disponible'">
-        {{ property().status }}
-      </span>
-    </div>
-  </figure>
+  <article class="property-card">
+    <figure class="property-card__media">
+      <img class="property-card__image" [src]="property().images[0]" [alt]="property().title" />
+      <div class="property-card__shade"></div>
 
-  <div class="card-body gap-4 p-5">
-    <div class="space-y-2">
-      <h2 class="card-title text-lg leading-tight">{{ property().title }}</h2>
-      <p class="text-sm text-base-content/65">{{ property().location }}</p>
-      <p class="text-sm leading-6 text-base-content/70">{{ property().teaser }}</p>
+      <div class="property-card__badges">
+        <span class="property-badge">{{ property().categoryLabel }}</span>
+        <span class="property-badge property-badge--status">{{ property().status }}</span>
+      </div>
+
+      <span class="property-card__photos"> Fotos </span>
+    </figure>
+
+    <div class="property-card__body">
+      <div>
+        <p class="property-card__meta">{{ property().operation }} · {{ property().location }}</p>
+        <h2 class="property-card__title">{{ property().title }}</h2>
+      </div>
+
+      <p class="property-card__teaser">
+        {{ property().teaser }}
+      </p>
     </div>
 
-    <div class="flex items-center justify-between gap-3 border-t border-base-200 pt-4">
-      <span class="text-xs font-semibold uppercase tracking-wide text-base-content/45">
-        Detalles por consulta
-      </span>
-      <span class="btn btn-primary btn-sm pointer-events-none">Ver fotos</span>
+    <div class="property-card__footer">
+      <div>
+        <p class="property-card__footer-label">Información</p>
+        <p class="property-card__footer-value">Bajo consulta</p>
+      </div>
+      <span class="property-card__action"> Solicitar </span>
     </div>
-  </div>
+  </article>
 </a>

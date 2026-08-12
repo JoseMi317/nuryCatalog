@@ -7,7 +7,7 @@ import { MOCK_PROPERTIES } from '../../../../shared/data/mock-properties';
 @Component({
   selector: 'app-property-detail-page',
   imports: [PropertyGallery, RouterLink],
-  templateUrl: './property-detail-page.html'
+  templateUrl: './property-detail-page.html',
 })
 export class PropertyDetailPage {
   private readonly route = inject(ActivatedRoute);
@@ -19,7 +19,7 @@ export class PropertyDetailPage {
 
   protected readonly contactHref = computed(() => {
     const property = this.property();
-    const message = `Hola Nury, me interesa recibir más información de ${property.id} - ${property.title}.`;
+    const message = `Hola!, me interesa recibir más información de ${property.title}.`;
 
     return `https://wa.me/50200000000?text=${encodeURIComponent(message)}`;
   });

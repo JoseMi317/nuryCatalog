@@ -3,40 +3,40 @@ import { Property, PropertyCategory } from '../models/property.model';
 export const PROPERTY_CATEGORIES: PropertyCategory[] = [
   {
     id: 'apartamento-venta',
-    label: 'Apartamento Venta',
+    label: 'Apartamentos en Venta',
     shortLabel: 'Aptos. venta',
-    description: 'Apartamentos disponibles para compra.'
+    description: 'Apartamentos disponibles para compra.',
   },
   {
     id: 'apartamento-renta',
     label: 'Apartamentos en Renta',
     shortLabel: 'Aptos. renta',
-    description: 'Opciones de apartamento para alquilar.'
+    description: 'Opciones de apartamento para alquilar.',
   },
   {
     id: 'casa-renta',
     label: 'Casas en Renta',
     shortLabel: 'Casas renta',
-    description: 'Casas listas para vivir en renta.'
+    description: 'Casas listas para vivir en renta.',
   },
   {
     id: 'casa-venta',
-    label: 'Casas Venta',
+    label: 'Casas en Venta',
     shortLabel: 'Casas venta',
-    description: 'Casas disponibles para compra.'
+    description: 'Casas disponibles para compra.',
   },
   {
     id: 'oficina',
     label: 'Oficinas',
     shortLabel: 'Oficinas',
-    description: 'Espacios comerciales y oficinas.'
+    description: 'Espacios comerciales y oficinas.',
   },
   {
     id: 'proyecto',
     label: 'Proyectos',
     shortLabel: 'Proyectos',
-    description: 'Desarrollos inmobiliarios en promoción.'
-  }
+    description: 'Desarrollos inmobiliarios en promoción.',
+  },
 ];
 
 export const MOCK_PROPERTIES: Property[] = [
@@ -45,7 +45,7 @@ export const MOCK_PROPERTIES: Property[] = [
     slug: 'apartamento-vista-hermosa',
     title: 'Apartamento en Vista Hermosa',
     categoryId: 'apartamento-venta',
-    categoryLabel: 'Apartamento Venta',
+    categoryLabel: 'Apartamentos en Venta',
     type: 'Apartamento',
     operation: 'Venta',
     status: 'Disponible',
@@ -62,9 +62,9 @@ export const MOCK_PROPERTIES: Property[] = [
     images: [
       'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
       'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1200&q=80',
     ],
-    featured: true
+    featured: true,
   },
   {
     id: 'NUR-002',
@@ -87,9 +87,9 @@ export const MOCK_PROPERTIES: Property[] = [
     amenities: ['Lobby', 'Coworking', 'Terraza', 'Pet friendly'],
     images: [
       'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1600607688066-890987f18a86?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1600607688066-890987f18a86?auto=format&fit=crop&w=1200&q=80',
     ],
-    featured: true
+    featured: true,
   },
   {
     id: 'NUR-003',
@@ -112,15 +112,15 @@ export const MOCK_PROPERTIES: Property[] = [
     amenities: ['Jardín', 'Pérgola', 'Área de servicio', 'Condominio privado'],
     images: [
       'https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=1200&q=80'
-    ]
+      'https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=1200&q=80',
+    ],
   },
   {
     id: 'NUR-004',
     slug: 'casa-en-venta-fraijanes',
     title: 'Casa en venta en Fraijanes',
     categoryId: 'casa-venta',
-    categoryLabel: 'Casas Venta',
+    categoryLabel: 'Casas en Venta',
     type: 'Casa',
     operation: 'Venta',
     status: 'Disponible',
@@ -136,9 +136,9 @@ export const MOCK_PROPERTIES: Property[] = [
     amenities: ['Condominio', 'Área verde', 'Seguridad', 'Sala familiar'],
     images: [
       'https://images.unsplash.com/photo-1600047509358-9dc75507daeb?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?auto=format&fit=crop&w=1200&q=80',
     ],
-    featured: true
+    featured: true,
   },
   {
     id: 'NUR-005',
@@ -161,8 +161,8 @@ export const MOCK_PROPERTIES: Property[] = [
     amenities: ['Recepción', 'Elevadores', 'Parqueo', 'Seguridad'],
     images: [
       'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=80'
-    ]
+      'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=80',
+    ],
   },
   {
     id: 'NUR-006',
@@ -185,15 +185,15 @@ export const MOCK_PROPERTIES: Property[] = [
     amenities: ['Amenidades', 'Etapas disponibles', 'Financiamiento', 'Asesoría'],
     images: [
       'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?auto=format&fit=crop&w=1200&q=80'
-    ]
+      'https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?auto=format&fit=crop&w=1200&q=80',
+    ],
   },
   {
     id: 'NUR-007',
     slug: 'apartamento-inversion-zona-diez',
     title: 'Apartamento para inversión',
     categoryId: 'apartamento-venta',
-    categoryLabel: 'Apartamento Venta',
+    categoryLabel: 'Apartamentos en Venta',
     type: 'Apartamento',
     operation: 'Venta',
     status: 'Reservado',
@@ -209,15 +209,15 @@ export const MOCK_PROPERTIES: Property[] = [
     amenities: ['Lobby', 'Parqueo', 'Seguridad', 'Área social'],
     images: [
       'https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1200&q=80'
-    ]
+      'https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1200&q=80',
+    ],
   },
   {
     id: 'NUR-008',
     slug: 'casa-venta-san-cristobal',
     title: 'Casa en San Cristóbal',
     categoryId: 'casa-venta',
-    categoryLabel: 'Casas Venta',
+    categoryLabel: 'Casas en Venta',
     type: 'Casa',
     operation: 'Venta',
     status: 'Disponible',
@@ -233,7 +233,7 @@ export const MOCK_PROPERTIES: Property[] = [
     amenities: ['Patio', 'Sala familiar', 'Parqueos', 'Servicios cercanos'],
     images: [
       'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1576941089067-2de3c901e126?auto=format&fit=crop&w=1200&q=80'
-    ]
-  }
+      'https://images.unsplash.com/photo-1576941089067-2de3c901e126?auto=format&fit=crop&w=1200&q=80',
+    ],
+  },
 ];

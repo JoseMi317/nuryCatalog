@@ -1,16 +1,23 @@
-<div class="min-h-dvh bg-base-200">
-  <header class="sticky top-0 z-40 border-b border-base-300 bg-base-100/95 backdrop-blur">
+<div class="catalog-layout">
+  <header class="catalog-header sticky top-0 z-40 border-b backdrop-blur">
     <div class="navbar mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="navbar-start">
-        <a routerLink="/propiedades" class="text-sm font-semibold text-base-content no-underline">
-          Nury Inmobiliaria
+        <a
+          routerLink="/propiedades"
+          class="text-sm font-bold text-[var(--catalog-ink)] no-underline"
+        >
+          Catálogo Inmobiliario
         </a>
       </div>
 
       <nav class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal gap-1 px-1">
           <li>
-            <a routerLink="/propiedades" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a
+              routerLink="/propiedades"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
               Propiedades
             </a>
           </li>
@@ -19,7 +26,12 @@
       </nav>
 
       <div class="navbar-end gap-2">
-        <a class="btn btn-primary btn-sm" href="https://wa.me/50200000000" target="_blank" rel="noopener">
+        <a
+          class="btn catalog-btn-primary btn-sm"
+          href="https://wa.me/50200000000"
+          target="_blank"
+          rel="noopener"
+        >
           WhatsApp
         </a>
       </div>
@@ -30,17 +42,23 @@
     <router-outlet />
   </main>
 
-  <footer id="contacto" class="border-t border-base-300 bg-base-100">
+  <footer id="contacto" class="catalog-footer border-t">
     <div class="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:px-6 md:grid-cols-[1fr_auto] lg:px-8">
       <div>
-        <p class="font-semibold">Catálogo Inmobiliario Nury</p>
-        <p class="mt-1 max-w-2xl text-sm text-base-content/60">
-          Propiedades seleccionadas para venta y renta. La información completa se confirma por WhatsApp.
+        <p class="font-semibold text-[var(--catalog-ink)]">Catálogo Inmobiliario</p>
+        <p class="mt-1 max-w-2xl text-sm text-[var(--catalog-muted)]">
+          Propiedades seleccionadas para venta y renta. La información completa se confirma por
+          WhatsApp.
         </p>
       </div>
       <div class="flex items-center gap-2">
-        <a class="btn btn-outline btn-sm" routerLink="/propiedades">Ver catálogo</a>
-        <a class="btn btn-primary btn-sm" href="https://wa.me/50200000000" target="_blank" rel="noopener">
+        <a class="btn catalog-btn-secondary btn-sm" routerLink="/propiedades">Ver catálogo</a>
+        <a
+          class="btn catalog-btn-primary btn-sm"
+          href="https://wa.me/50200000000"
+          target="_blank"
+          rel="noopener"
+        >
           Contactar
         </a>
       </div>

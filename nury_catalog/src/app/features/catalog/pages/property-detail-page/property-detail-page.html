@@ -1,64 +1,69 @@
 <section class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-  <a class="btn btn-ghost btn-sm mb-5" routerLink="/propiedades">Regresar al catálogo</a>
+  <a class="btn btn-ghost btn-sm mb-5 rounded-full" routerLink="/propiedades"
+    >Regresar al catálogo</a
+  >
 
   <div class="grid gap-8 lg:grid-cols-[1.12fr_0.88fr]">
     <app-property-gallery [images]="property().images" [title]="property().title" />
 
     <aside class="space-y-5">
-      <div class="rounded-box border border-base-300 bg-base-100 p-5 shadow-sm">
-        <div class="mb-3 flex flex-wrap gap-2">
-          <span class="badge badge-primary">{{ property().categoryLabel }}</span>
-          <span class="badge badge-success">{{ property().status }}</span>
+      <div class="detail-panel p-5">
+        <div class="mb-4 flex flex-wrap gap-2">
+          <span class="catalog-pill catalog-pill-dark">{{ property().categoryLabel }}</span>
+          <span class="catalog-pill">{{ property().status }}</span>
         </div>
 
-        <h1 class="text-3xl font-bold leading-tight">{{ property().title }}</h1>
-        <p class="mt-2 text-base-content/65">{{ property().location }}</p>
-        <p class="mt-4 text-sm leading-6 text-base-content/70">{{ property().teaser }}</p>
+        <p class="property-card__meta">{{ property().operation }} · {{ property().location }}</p>
+        <h1 class="mt-3 text-3xl font-black uppercase leading-none text-[var(--catalog-ink)]">
+          {{ property().title }}
+        </h1>
+        <p class="property-card__teaser mt-5">
+          {{ property().teaser }}
+        </p>
 
-        <div class="divider"></div>
+        <div class="mt-5 grid gap-3 sm:grid-cols-2">
+          <div class="info-tile p-3">
+            <p class="text-xs uppercase tracking-wide text-[var(--catalog-muted)]">
+              Disponibilidad
+            </p>
+            <p class="font-bold text-[var(--catalog-ink)]">{{ property().status }}</p>
+          </div>
+          <div class="info-tile p-3">
+            <p class="text-xs uppercase tracking-wide text-[var(--catalog-muted)]">
+              Detalles completos
+            </p>
+            <p class="font-bold text-[var(--catalog-accent-dark)]">Por WhatsApp</p>
+          </div>
+        </div>
+      </div>
 
-        <div class="space-y-3">
-          <div class="flex items-center justify-between gap-4 rounded-lg bg-base-200 p-3">
-            <span class="text-sm text-base-content/60">Código</span>
-            <span class="font-semibold">{{ property().id }}</span>
-          </div>
-          <div class="flex items-center justify-between gap-4 rounded-lg bg-base-200 p-3">
-            <span class="text-sm text-base-content/60">Categoría</span>
-            <span class="font-semibold">{{ property().categoryLabel }}</span>
-          </div>
-          <div class="flex items-center justify-between gap-4 rounded-lg bg-base-200 p-3">
-            <span class="text-sm text-base-content/60">Información completa</span>
-            <span class="font-semibold text-primary">Por WhatsApp</span>
-          </div>
+      <div class="contact-panel p-6">
+        <div
+          class="mb-6 grid h-14 w-14 place-items-center rounded-full bg-white text-2xl font-black text-[var(--catalog-ink)]"
+        >
+          N
+        </div>
+
+        <h2 class="text-2xl font-black leading-tight">¿Te interesa esta propiedad?</h2>
+        <p class="mt-4 text-sm leading-6 text-white/75">
+          Puedes contactar con nosotros por WhatsApp para que te compartamos precio, medidas, ubicación exacta, disponibilidad actual y
+          coordinar una visita.
+        </p>
+
+        <div class="mt-5 flex flex-wrap gap-2">
+          @for (amenity of property().amenities.slice(0, 3); track amenity) {
+            <span class="catalog-pill border-white/20 bg-white/10 text-white">{{ amenity }}</span>
+          }
         </div>
 
         <a
-          class="btn btn-primary mt-6 w-full"
+          class="btn mt-6 w-full catalog-btn-secondary"
           [href]="contactHref()"
           target="_blank"
           rel="noopener"
         >
           Solicitar información por WhatsApp
         </a>
-
-        <p class="mt-3 text-center text-xs leading-5 text-base-content/50">
-          Precio, medidas y condiciones se comparten directamente para confirmar disponibilidad actual.
-        </p>
-      </div>
-
-      <div class="rounded-box border border-base-300 bg-base-100 p-5">
-        <h2 class="text-lg font-semibold">Vista rápida</h2>
-        <p class="mt-2 text-sm leading-6 text-base-content/65">
-          Esta ficha muestra solo una vista general de la propiedad. Para detalles, ubicación exacta, precio y visita,
-          se recomienda contactar directamente.
-        </p>
-
-        <div class="mt-4 flex flex-wrap gap-2">
-          @for (amenity of property().amenities.slice(0, 3); track amenity) {
-            <span class="badge badge-outline">{{ amenity }}</span>
-          }
-          <span class="badge badge-ghost">Más detalles por consulta</span>
-        </div>
       </div>
     </aside>
   </div>

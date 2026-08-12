@@ -1,53 +1,75 @@
-<section class="bg-base-100">
-  <div class="mx-auto grid max-w-7xl gap-8 px-4 py-8 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:py-12">
+<section class="catalog-hero">
+  <div
+    class="mx-auto grid max-w-7xl gap-8 px-4 py-8 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:py-12"
+  >
     <div class="flex flex-col justify-center">
       <div class="mb-4 flex flex-wrap gap-2">
-        <span class="badge badge-primary">Catálogo web</span>
-        <span class="badge badge-outline">Consulta por WhatsApp</span>
-        <span class="badge badge-outline">Fotos disponibles</span>
+        <span class="catalog-pill catalog-pill-dark">Catálogo inmobiliario</span>
+        <span class="catalog-pill">Fotos disponibles</span>
+        <span class="catalog-pill">Consulta personalizada</span>
       </div>
 
-      <h1 class="max-w-3xl text-4xl font-bold leading-tight text-base-content sm:text-5xl">
-        Propiedades seleccionadas para consultar directo con Nury
+      <h1 class="max-w-3xl text-4xl font-bold leading-tight text-[var(--catalog-ink)] sm:text-5xl">
+        Propiedades seleccionadas para consultar y contactar por WhatsApp
       </h1>
 
-      <p class="mt-4 max-w-2xl text-base leading-7 text-base-content/65">
-        Revisa opciones por categoría, mira las fotos principales y solicita los detalles completos por WhatsApp.
+      <p class="mt-4 max-w-2xl text-base leading-7 text-[var(--catalog-muted)]">
+        Revisa opciones por categoría, mira una vista inicial y solicita los detalles completos por
+        WhatsApp.
       </p>
 
       <div class="mt-6 flex flex-wrap gap-3">
-        <a class="btn btn-primary" href="#catalogo">Ver catálogo</a>
-        <a class="btn btn-outline" href="https://wa.me/50200000000" target="_blank" rel="noopener">
-          Hablar con Nury
+        <a class="btn catalog-btn-primary" href="#catalogo">Ver catálogo</a>
+        <a
+          class="btn catalog-btn-secondary"
+          href="https://wa.me/50200000000"
+          target="_blank"
+          rel="noopener"
+        >
+          Hablar por WhatsApp
         </a>
       </div>
     </div>
 
     @if (featured[0]; as heroProperty) {
       <a
-        class="group overflow-hidden rounded-box border border-base-300 bg-base-200 text-base-content no-underline shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+        class="property-card-link"
         [routerLink]="['/propiedades', heroProperty.slug]"
+        [attr.aria-label]="'Ver propiedad destacada ' + heroProperty.title"
       >
-        <figure class="relative aspect-[4/3] overflow-hidden bg-base-200">
-          <img
-            class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-            [src]="heroProperty.images[0]"
-            [alt]="heroProperty.title"
-          />
-          <div class="absolute left-4 top-4 flex flex-wrap gap-2">
-            <span class="badge badge-primary">{{ heroProperty.categoryLabel }}</span>
-            <span class="badge badge-success">{{ heroProperty.status }}</span>
-          </div>
-        </figure>
+        <article class="property-card">
+          <figure class="property-card__media">
+            <img
+              class="property-card__image"
+              [src]="heroProperty.images[0]"
+              [alt]="heroProperty.title"
+            />
+            <div class="property-card__shade"></div>
+            <div class="property-card__badges">
+              <span class="property-badge">{{ heroProperty.categoryLabel }}</span>
+              <span class="property-badge property-badge--status">{{ heroProperty.status }}</span>
+            </div>
+          </figure>
 
-        <div class="space-y-3 p-5">
-          <div>
-            <p class="text-xs font-semibold uppercase tracking-wide text-primary">Destacado</p>
-            <h2 class="mt-1 text-xl font-semibold">{{ heroProperty.title }}</h2>
+          <div class="property-card__body">
+            <div>
+              <p class="property-card__meta">Destacado</p>
+              <h2 class="property-card__title">{{ heroProperty.title }}</h2>
+            </div>
+
+            <p class="property-card__teaser">
+              {{ heroProperty.teaser }}
+            </p>
           </div>
-          <p class="text-sm leading-6 text-base-content/65">{{ heroProperty.teaser }}</p>
-          <span class="btn btn-primary btn-sm pointer-events-none">Ver fotos y contactar</span>
-        </div>
+
+          <div class="property-card__footer">
+            <div>
+              <p class="property-card__footer-label">Vista inicial</p>
+              <p class="property-card__footer-value">Fotos disponibles</p>
+            </div>
+            <span class="property-card__action">Ver y contactar</span>
+          </div>
+        </article>
       </a>
     }
   </div>
@@ -56,58 +78,25 @@
 <section id="catalogo" class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
   <div class="mb-6 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
     <div>
-      <p class="text-sm font-semibold uppercase tracking-wide text-primary">Categorías</p>
-      <h2 class="text-2xl font-bold">Catálogo disponible</h2>
-      <p class="mt-1 text-sm text-base-content/60">
-        Filtros basados en las carpetas de imágenes de la inmobiliaria.
+      <p class="text-sm font-extrabold uppercase tracking-[0.12em] text-[#7b3c2e]">Categorías</p>
+      <h2 class="text-2xl font-bold text-[var(--catalog-ink)]">Elige qué quieres ver</h2>
+      <p class="mt-1 text-sm text-[var(--catalog-muted)]">
+        Las categorías siguen la organización de imágenes de la inmobiliaria.
       </p>
     </div>
 
-    <button class="btn btn-ghost btn-sm w-fit" type="button" (click)="clearFilters()">
+    <button class="btn btn-ghost btn-sm w-fit rounded-full" type="button" (click)="clearFilters()">
       Limpiar filtros
     </button>
   </div>
-
-  <div class="mb-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-    <button
-      type="button"
-      class="rounded-box border p-4 text-left transition hover:-translate-y-0.5 hover:shadow-sm"
-      [class.border-primary]="selectedCategory() === 'all'"
-      [class.bg-primary]="selectedCategory() === 'all'"
-      [class.text-primary-content]="selectedCategory() === 'all'"
-      [class.border-base-300]="selectedCategory() !== 'all'"
-      [class.bg-base-100]="selectedCategory() !== 'all'"
-      (click)="selectCategory('all')"
-    >
-      <span class="text-sm font-semibold">Todas las propiedades</span>
-      <span class="mt-1 block text-xs opacity-70">{{ visibleCount() }} resultados visibles</span>
-    </button>
-
-    @for (category of categories; track category.id) {
-      <button
-        type="button"
-        class="rounded-box border p-4 text-left transition hover:-translate-y-0.5 hover:shadow-sm"
-        [class.border-primary]="selectedCategory() === category.id"
-        [class.bg-primary]="selectedCategory() === category.id"
-        [class.text-primary-content]="selectedCategory() === category.id"
-        [class.border-base-300]="selectedCategory() !== category.id"
-        [class.bg-base-100]="selectedCategory() !== category.id"
-        (click)="selectCategory(category.id)"
-      >
-        <span class="text-sm font-semibold">{{ category.label }}</span>
-        <span class="mt-1 block text-xs opacity-70">
-          {{ countByCategory(category.id) }} opciones
-        </span>
-      </button>
-    }
-  </div>
-
-  <div class="mb-6 rounded-box border border-base-300 bg-base-100 p-4 shadow-sm">
+  <div
+    class="mb-5 rounded-xl border border-[#ddd7cb] bg-[#fffdf8]/90 p-4 shadow-[0_18px_38px_-34px_rgb(31_33_28_/_42%)]"
+  >
     <div class="grid gap-3 md:grid-cols-[1fr_180px_180px]">
       <label class="form-control">
-        <span class="label-text">Buscar por zona o nombre</span>
+        <span class="label-text font-bold text-[#1f211c]">Buscar por zona o nombre</span>
         <input
-          class="input input-bordered"
+          class="input ml-2 rounded-xl border-[#c9c0b2] bg-white focus:border-[#a8553f] focus:outline-[#a8553f]/30"
           type="search"
           placeholder="Ej. Zona 14, casa, oficina..."
           [value]="searchTerm()"
@@ -116,9 +105,9 @@
       </label>
 
       <label class="form-control">
-        <span class="label-text">Operación</span>
+        <span class="label-text font-bold text-[#1f211c]">Operación</span>
         <select
-          class="select select-bordered"
+          class="select rounded-xl border-[#c9c0b2] bg-white focus:border-[#a8553f] focus:outline-[#a8553f]/30"
           [value]="selectedOperation()"
           (change)="selectOperation($any($event.target).value)"
         >
@@ -129,9 +118,9 @@
       </label>
 
       <label class="form-control">
-        <span class="label-text">Estado</span>
+        <span class="label-text font-bold text-[#1f211c]">Estado</span>
         <select
-          class="select select-bordered"
+          class="select rounded-xl border-[#c9c0b2] bg-white focus:border-[#a8553f] focus:outline-[#a8553f]/30"
           [value]="selectedStatus()"
           (change)="selectStatus($any($event.target).value)"
         >
@@ -144,24 +133,99 @@
     </div>
   </div>
 
+  <div class="mb-6 flex flex-wrap gap-2">
+    <button
+      type="button"
+      class="inline-flex min-h-11 items-center gap-2 rounded-full border px-4 py-2 text-sm font-bold transition hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-[#a8553f]/25"
+      [ngClass]="
+        selectedCategory() === 'all'
+          ? ['border-[#a8553f]', 'bg-[#fff7ec]', 'text-[#7b3c2e]', 'shadow-sm']
+          : [
+              'border-[#d6cabb]',
+              'bg-[#fffdf8]',
+              'text-[#1f211c]',
+              'hover:border-[#bda58f]',
+              'hover:bg-[#fffaf2]',
+            ]
+      "
+      [attr.aria-pressed]="selectedCategory() === 'all'"
+      (click)="selectCategory('all')"
+    >
+      <span>Todas</span>
+      <span
+        class="rounded-full px-2 py-0.5 text-xs font-black"
+        [ngClass]="
+          selectedCategory() === 'all'
+            ? ['bg-[#a8553f]', 'text-white']
+            : ['bg-[#eef2e9]', 'text-[#344035]']
+        "
+      >
+        {{ visibleCount() }}
+      </span>
+    </button>
+
+    @for (category of categories; track category.id) {
+      <button
+        type="button"
+        class="inline-flex min-h-11 items-center gap-2 rounded-full border px-4 py-2 text-sm font-bold transition hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-[#a8553f]/25"
+        [ngClass]="
+          selectedCategory() === category.id
+            ? ['border-[#a8553f]', 'bg-[#fff7ec]', 'text-[#7b3c2e]', 'shadow-sm']
+            : [
+                'border-[#d6cabb]',
+                'bg-[#fffdf8]',
+                'text-[#1f211c]',
+                'hover:border-[#bda58f]',
+                'hover:bg-[#fffaf2]',
+              ]
+        "
+        [attr.aria-pressed]="selectedCategory() === category.id"
+        (click)="selectCategory(category.id)"
+      >
+        <span>{{ category.label }}</span>
+        <span
+          class="rounded-full px-2 py-0.5 text-xs font-black"
+          [ngClass]="
+            selectedCategory() === category.id
+              ? ['bg-[#a8553f]', 'text-white']
+              : ['bg-[#eef2e9]', 'text-[#344035]']
+          "
+        >
+          {{ countByCategory(category.id) }}
+        </span>
+      </button>
+    }
+  </div>
+
   <div class="mb-4 flex items-center justify-between gap-4">
-    <p class="text-sm text-base-content/60">
-      Mostrando <span class="font-semibold text-base-content">{{ visibleCount() }}</span> propiedades.
+    <p class="text-sm text-[var(--catalog-muted)]">
+      Mostrando
+      <span class="font-semibold text-[var(--catalog-ink)]">{{ visibleCount() }}</span> propiedades.
     </p>
-    <p class="hidden text-sm text-base-content/50 sm:block">Información completa bajo consulta.</p>
+    <p class="hidden text-sm text-[var(--catalog-muted)] sm:block">
+      Información completa bajo consulta.
+    </p>
   </div>
 
   @if (filteredProperties().length > 0) {
-    <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+    <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
       @for (property of filteredProperties(); track property.id) {
         <app-property-card [property]="property" />
       }
     </div>
   } @else {
-    <div class="rounded-box border border-dashed border-base-300 bg-base-100 p-8 text-center">
-      <h3 class="text-lg font-semibold">No hay propiedades con esos filtros</h3>
-      <p class="mt-2 text-sm text-base-content/60">Prueba otra categoría o consulta directamente con Nury.</p>
-      <button class="btn btn-primary btn-sm mt-4" type="button" (click)="clearFilters()">Ver todas</button>
+    <div
+      class="rounded-xl border border-dashed border-[var(--catalog-line-strong)] bg-[var(--catalog-paper)] p-8 text-center"
+    >
+      <h3 class="text-lg font-semibold text-[var(--catalog-ink)]">
+        No hay propiedades con esos filtros
+      </h3>
+      <p class="mt-2 text-sm text-[var(--catalog-muted)]">
+        Prueba otra categoría o consulta directamente con nosotros por WhatsApp.
+      </p>
+      <button class="btn catalog-btn-primary btn-sm mt-4" type="button" (click)="clearFilters()">
+        Ver todas
+      </button>
     </div>
   }
 </section>

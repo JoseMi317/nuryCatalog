@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import { Component, computed, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
@@ -6,7 +7,7 @@ import { MOCK_PROPERTIES, PROPERTY_CATEGORIES } from '../../../../shared/data/mo
 import {
   PropertyCategoryId,
   PropertyOperation,
-  PropertyStatus
+  PropertyStatus,
 } from '../../../../shared/models/property.model';
 
 type CategoryFilter = PropertyCategoryId | 'all';
@@ -15,8 +16,8 @@ type StatusFilter = PropertyStatus | 'all';
 
 @Component({
   selector: 'app-catalog-page',
-  imports: [PropertyCard, RouterLink],
-  templateUrl: './catalog-page.html'
+  imports: [NgClass, PropertyCard, RouterLink],
+  templateUrl: './catalog-page.html',
 })
 export class CatalogPage {
   protected readonly categories = PROPERTY_CATEGORIES;
@@ -33,8 +34,10 @@ export class CatalogPage {
     const searchTerm = this.searchTerm().trim().toLowerCase();
 
     return MOCK_PROPERTIES.filter((property) => {
-      const matchesCategory = selectedCategory === 'all' || property.categoryId === selectedCategory;
-      const matchesOperation = selectedOperation === 'all' || property.operation === selectedOperation;
+      const matchesCategory =
+        selectedCategory === 'all' || property.categoryId === selectedCategory;
+      const matchesOperation =
+        selectedOperation === 'all' || property.operation === selectedOperation;
       const matchesStatus = selectedStatus === 'all' || property.status === selectedStatus;
       const matchesSearch =
         !searchTerm ||
