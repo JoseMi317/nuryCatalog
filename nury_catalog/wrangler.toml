@@ -1,3 +1,6 @@
-name = "nury-catalog"
+name = "nurycatalog"
 compatibility_date = "2026-09-03"
-pages_build_output_dir = "./dist/nury_catalog/browser"
+
+[assets]
+directory = "./dist/nury_catalog/browser"
+not_found_handling = "single-page-application"
