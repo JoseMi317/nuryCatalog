@@ -233,6 +233,10 @@ img {
   padding: 1rem 1.4rem;
 }
 
+.property-card__footer--contact {
+  justify-content: center;
+}
+
 .property-card__footer-label {
   color: rgb(31 33 28 / 44%);
   font-size: 0.68rem;

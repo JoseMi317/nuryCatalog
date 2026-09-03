@@ -1,18 +1,16 @@
 import { NgClass } from '@angular/common';
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { PropertyCard } from '../../../../shared/components/property-card/property-card';
-import { MOCK_PROPERTIES, PROPERTY_CATEGORIES } from '../../../../shared/data/mock-properties';
+import { PropertyCategoryId } from '../../../../shared/models/property.model';
+import { PropertyService } from '../../../../shared/services/property.service';
 import {
-  PropertyCategoryId,
-  PropertyOperation,
-  PropertyStatus,
-} from '../../../../shared/models/property.model';
+  buildGeneralContactMessage,
+  buildWhatsappUrl,
+} from '../../../../shared/utils/contact-links';
 
 type CategoryFilter = PropertyCategoryId | 'all';
-type OperationFilter = PropertyOperation | 'all';
-type StatusFilter = PropertyStatus | 'all';
 
 @Component({
   selector: 'app-catalog-page',
@@ -20,25 +18,31 @@ type StatusFilter = PropertyStatus | 'all';
   templateUrl: './catalog-page.html',
 })
 export class CatalogPage {
-  protected readonly categories = PROPERTY_CATEGORIES;
-  protected readonly featured = MOCK_PROPERTIES.filter((property) => property.featured);
+  private readonly propertyService = inject(PropertyService);
+
+  protected readonly categories = this.propertyService.categories;
+  protected readonly featured = computed(() =>
+    this.propertyService.properties().filter((property) => property.featured),
+  );
   protected readonly selectedCategory = signal<CategoryFilter>('all');
-  protected readonly selectedOperation = signal<OperationFilter>('all');
-  protected readonly selectedStatus = signal<StatusFilter>('all');
   protected readonly searchTerm = signal('');
+  protected readonly generalContactHref = buildWhatsappUrl(buildGeneralContactMessage());
+  protected readonly totalCount = computed(() => this.propertyService.properties().length);
+  protected readonly activeCategories = computed(() =>
+    this.categories().filter((category) => this.countByCategory(category.id) > 0),
+  );
+
+  constructor() {
+    void this.propertyService.loadCatalog();
+  }
 
   protected readonly filteredProperties = computed(() => {
     const selectedCategory = this.selectedCategory();
-    const selectedOperation = this.selectedOperation();
-    const selectedStatus = this.selectedStatus();
     const searchTerm = this.searchTerm().trim().toLowerCase();
 
-    return MOCK_PROPERTIES.filter((property) => {
+    return this.propertyService.properties().filter((property) => {
       const matchesCategory =
         selectedCategory === 'all' || property.categoryId === selectedCategory;
-      const matchesOperation =
-        selectedOperation === 'all' || property.operation === selectedOperation;
-      const matchesStatus = selectedStatus === 'all' || property.status === selectedStatus;
       const matchesSearch =
         !searchTerm ||
         [property.title, property.location, property.categoryLabel, property.teaser]
@@ -46,7 +50,7 @@ export class CatalogPage {
           .toLowerCase()
           .includes(searchTerm);
 
-      return matchesCategory && matchesOperation && matchesStatus && matchesSearch;
+      return matchesCategory && matchesSearch;
     });
   });
 
@@ -56,26 +60,28 @@ export class CatalogPage {
     this.selectedCategory.set(category);
   }
 
-  protected selectOperation(operation: OperationFilter): void {
-    this.selectedOperation.set(operation);
-  }
-
-  protected selectStatus(status: StatusFilter): void {
-    this.selectedStatus.set(status);
-  }
-
   protected setSearchTerm(term: string): void {
     this.searchTerm.set(term);
   }
 
   protected clearFilters(): void {
     this.selectedCategory.set('all');
-    this.selectedOperation.set('all');
-    this.selectedStatus.set('all');
     this.searchTerm.set('');
   }
 
   protected countByCategory(categoryId: PropertyCategoryId): number {
-    return MOCK_PROPERTIES.filter((property) => property.categoryId === categoryId).length;
+    return this.propertyService
+      .properties()
+      .filter((property) => property.categoryId === categoryId).length;
+  }
+
+  protected setImageFallback(event: Event): void {
+    const image = event.target as HTMLImageElement;
+
+    if (image.src.endsWith('/property-placeholder.svg')) {
+      return;
+    }
+
+    image.src = '/property-placeholder.svg';
   }
 }

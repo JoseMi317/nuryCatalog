@@ -5,7 +5,12 @@
 >
   <article class="property-card">
     <figure class="property-card__media">
-      <img class="property-card__image" [src]="property().images[0]" [alt]="property().title" />
+      <img
+        class="property-card__image"
+        [src]="property().images[0]"
+        [alt]="property().title"
+        (error)="setImageFallback($event)"
+      />
       <div class="property-card__shade"></div>
 
       <div class="property-card__badges">
@@ -27,12 +32,8 @@
       </p>
     </div>
 
-    <div class="property-card__footer">
-      <div>
-        <p class="property-card__footer-label">Información</p>
-        <p class="property-card__footer-value">Bajo consulta</p>
-      </div>
-      <span class="property-card__action"> Solicitar </span>
+    <div class="property-card__footer property-card__footer--contact">
+      <span class="property-card__action">Contáctanos</span>
     </div>
   </article>
 </a>

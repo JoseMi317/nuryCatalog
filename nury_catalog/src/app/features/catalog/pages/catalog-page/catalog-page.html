@@ -22,16 +22,16 @@
         <a class="btn catalog-btn-primary" href="#catalogo">Ver catálogo</a>
         <a
           class="btn catalog-btn-secondary"
-          href="https://wa.me/50200000000"
+          [href]="generalContactHref"
           target="_blank"
           rel="noopener"
         >
-          Hablar por WhatsApp
+          Contáctanos
         </a>
       </div>
     </div>
 
-    @if (featured[0]; as heroProperty) {
+    @if (featured()[0]; as heroProperty) {
       <a
         class="property-card-link"
         [routerLink]="['/propiedades', heroProperty.slug]"
@@ -43,6 +43,7 @@
               class="property-card__image"
               [src]="heroProperty.images[0]"
               [alt]="heroProperty.title"
+              (error)="setImageFallback($event)"
             />
             <div class="property-card__shade"></div>
             <div class="property-card__badges">
@@ -62,12 +63,8 @@
             </p>
           </div>
 
-          <div class="property-card__footer">
-            <div>
-              <p class="property-card__footer-label">Vista inicial</p>
-              <p class="property-card__footer-value">Fotos disponibles</p>
-            </div>
-            <span class="property-card__action">Ver y contactar</span>
+          <div class="property-card__footer property-card__footer--contact">
+            <span class="property-card__action">Contáctanos</span>
           </div>
         </article>
       </a>
@@ -92,43 +89,16 @@
   <div
     class="mb-5 rounded-xl border border-[#ddd7cb] bg-[#fffdf8]/90 p-4 shadow-[0_18px_38px_-34px_rgb(31_33_28_/_42%)]"
   >
-    <div class="grid gap-3 md:grid-cols-[1fr_180px_180px]">
-      <label class="form-control">
+    <div class="grid gap-3 md:grid-cols-[minmax(260px,560px)]">
+      <label class="form-control gap-2 md:flex-row md:items-center">
         <span class="label-text font-bold text-[#1f211c]">Buscar por zona o nombre</span>
         <input
-          class="input ml-2 rounded-xl border-[#c9c0b2] bg-white focus:border-[#a8553f] focus:outline-[#a8553f]/30"
+          class="input w-full rounded-xl border-[#c9c0b2] bg-white focus:border-[#a8553f] focus:outline-[#a8553f]/30 md:flex-1"
           type="search"
-          placeholder="Ej. Zona 14, casa, oficina..."
+          placeholder="Ej. Zona 14, Minerva, Antigua..."
           [value]="searchTerm()"
           (input)="setSearchTerm($any($event.target).value)"
         />
-      </label>
-
-      <label class="form-control">
-        <span class="label-text font-bold text-[#1f211c]">Operación</span>
-        <select
-          class="select rounded-xl border-[#c9c0b2] bg-white focus:border-[#a8553f] focus:outline-[#a8553f]/30"
-          [value]="selectedOperation()"
-          (change)="selectOperation($any($event.target).value)"
-        >
-          <option value="all">Todas</option>
-          <option value="Venta">Venta</option>
-          <option value="Renta">Renta</option>
-        </select>
-      </label>
-
-      <label class="form-control">
-        <span class="label-text font-bold text-[#1f211c]">Estado</span>
-        <select
-          class="select rounded-xl border-[#c9c0b2] bg-white focus:border-[#a8553f] focus:outline-[#a8553f]/30"
-          [value]="selectedStatus()"
-          (change)="selectStatus($any($event.target).value)"
-        >
-          <option value="all">Todos</option>
-          <option value="Disponible">Disponible</option>
-          <option value="Reservado">Reservado</option>
-          <option value="Vendido">Vendido</option>
-        </select>
       </label>
     </div>
   </div>
@@ -160,11 +130,11 @@
             : ['bg-[#eef2e9]', 'text-[#344035]']
         "
       >
-        {{ visibleCount() }}
+        {{ totalCount() }}
       </span>
     </button>
 
-    @for (category of categories; track category.id) {
+    @for (category of activeCategories(); track category.id) {
       <button
         type="button"
         class="inline-flex min-h-11 items-center gap-2 rounded-full border px-4 py-2 text-sm font-bold transition hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-[#a8553f]/25"

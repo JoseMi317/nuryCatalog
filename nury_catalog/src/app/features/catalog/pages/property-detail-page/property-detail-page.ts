@@ -2,7 +2,12 @@ import { Component, computed, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 
 import { PropertyGallery } from '../../../../shared/components/property-gallery/property-gallery';
-import { MOCK_PROPERTIES } from '../../../../shared/data/mock-properties';
+import { PropertyService } from '../../../../shared/services/property.service';
+import {
+  buildGeneralContactMessage,
+  buildPropertyContactMessage,
+  buildWhatsappUrl,
+} from '../../../../shared/utils/contact-links';
 
 @Component({
   selector: 'app-property-detail-page',
@@ -11,16 +16,23 @@ import { MOCK_PROPERTIES } from '../../../../shared/data/mock-properties';
 })
 export class PropertyDetailPage {
   private readonly route = inject(ActivatedRoute);
+  private readonly propertyService = inject(PropertyService);
+
+  constructor() {
+    void this.propertyService.loadCatalog();
+  }
 
   protected readonly property = computed(() => {
     const slug = this.route.snapshot.paramMap.get('slug');
-    return MOCK_PROPERTIES.find((property) => property.slug === slug) ?? MOCK_PROPERTIES[0];
+    return this.propertyService.propertyBySlug(slug);
   });
 
   protected readonly contactHref = computed(() => {
     const property = this.property();
-    const message = `Hola!, me interesa recibir más información de ${property.title}.`;
+    const message = property
+      ? buildPropertyContactMessage(property)
+      : buildGeneralContactMessage();
 
-    return `https://wa.me/50200000000?text=${encodeURIComponent(message)}`;
+    return buildWhatsappUrl(message);
   });
 }

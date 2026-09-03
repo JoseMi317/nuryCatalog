@@ -40,6 +40,7 @@ testem.log
 /.codex-*.err
 /typings
 __screenshots__/
+import-assets/
 
 # System files
 .DS_Store

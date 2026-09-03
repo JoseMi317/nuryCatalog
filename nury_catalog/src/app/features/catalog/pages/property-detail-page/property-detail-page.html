@@ -3,68 +3,77 @@
     >Regresar al catálogo</a
   >
 
-  <div class="grid gap-8 lg:grid-cols-[1.12fr_0.88fr]">
-    <app-property-gallery [images]="property().images" [title]="property().title" />
+  @if (property(); as property) {
+    <div class="grid gap-8 lg:grid-cols-[1.12fr_0.88fr]">
+      <app-property-gallery [images]="property.images" [title]="property.title" />
 
-    <aside class="space-y-5">
-      <div class="detail-panel p-5">
-        <div class="mb-4 flex flex-wrap gap-2">
-          <span class="catalog-pill catalog-pill-dark">{{ property().categoryLabel }}</span>
-          <span class="catalog-pill">{{ property().status }}</span>
-        </div>
-
-        <p class="property-card__meta">{{ property().operation }} · {{ property().location }}</p>
-        <h1 class="mt-3 text-3xl font-black uppercase leading-none text-[var(--catalog-ink)]">
-          {{ property().title }}
-        </h1>
-        <p class="property-card__teaser mt-5">
-          {{ property().teaser }}
-        </p>
-
-        <div class="mt-5 grid gap-3 sm:grid-cols-2">
-          <div class="info-tile p-3">
-            <p class="text-xs uppercase tracking-wide text-[var(--catalog-muted)]">
-              Disponibilidad
-            </p>
-            <p class="font-bold text-[var(--catalog-ink)]">{{ property().status }}</p>
+      <aside class="space-y-5">
+        <div class="detail-panel p-5">
+          <div class="mb-4 flex flex-wrap gap-2">
+            <span class="catalog-pill catalog-pill-dark">{{ property.categoryLabel }}</span>
+            <span class="catalog-pill">{{ property.status }}</span>
           </div>
-          <div class="info-tile p-3">
-            <p class="text-xs uppercase tracking-wide text-[var(--catalog-muted)]">
-              Detalles completos
-            </p>
-            <p class="font-bold text-[var(--catalog-accent-dark)]">Por WhatsApp</p>
+
+          <p class="property-card__meta">{{ property.operation }} · {{ property.location }}</p>
+          <h1 class="mt-3 text-3xl font-black uppercase leading-none text-[var(--catalog-ink)]">
+            {{ property.title }}
+          </h1>
+          <p class="property-card__teaser mt-5">
+            {{ property.teaser }}
+          </p>
+
+          <div class="mt-5 grid gap-3 sm:grid-cols-2">
+            <div class="info-tile p-3">
+              <p class="text-xs uppercase tracking-wide text-[var(--catalog-muted)]">
+                Disponibilidad
+              </p>
+              <p class="font-bold text-[var(--catalog-ink)]">{{ property.status }}</p>
+            </div>
+            <div class="info-tile p-3">
+              <p class="text-xs uppercase tracking-wide text-[var(--catalog-muted)]">
+                Detalles completos
+              </p>
+              <p class="font-bold text-[var(--catalog-accent-dark)]">Por WhatsApp</p>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="contact-panel p-6">
-        <div
-          class="mb-6 grid h-14 w-14 place-items-center rounded-full bg-white text-2xl font-black text-[var(--catalog-ink)]"
-        >
-          N
+        <div class="contact-panel p-6">
+          <div
+            class="mb-6 grid h-14 w-14 place-items-center rounded-full bg-white text-2xl font-black text-[var(--catalog-ink)]"
+          >
+            N
+          </div>
+
+          <h2 class="text-2xl font-black leading-tight">¿Te interesa esta propiedad?</h2>
+          <p class="mt-4 text-sm leading-6 text-white/75">
+            Puedes escribirnos por WhatsApp para que te compartamos precio, medidas, ubicación exacta, disponibilidad actual y coordinar una
+            visita.
+          </p>
+
+          <a
+            class="btn mt-6 w-full catalog-btn-secondary"
+            [href]="contactHref()"
+            target="_blank"
+            rel="noopener"
+          >
+            Contáctanos
+          </a>
         </div>
-
-        <h2 class="text-2xl font-black leading-tight">¿Te interesa esta propiedad?</h2>
-        <p class="mt-4 text-sm leading-6 text-white/75">
-          Puedes contactar con nosotros por WhatsApp para que te compartamos precio, medidas, ubicación exacta, disponibilidad actual y
-          coordinar una visita.
-        </p>
-
-        <div class="mt-5 flex flex-wrap gap-2">
-          @for (amenity of property().amenities.slice(0, 3); track amenity) {
-            <span class="catalog-pill border-white/20 bg-white/10 text-white">{{ amenity }}</span>
-          }
-        </div>
-
-        <a
-          class="btn mt-6 w-full catalog-btn-secondary"
-          [href]="contactHref()"
-          target="_blank"
-          rel="noopener"
-        >
-          Solicitar información por WhatsApp
+      </aside>
+    </div>
+  } @else {
+    <div class="detail-panel mx-auto max-w-2xl p-8 text-center">
+      <h1 class="text-2xl font-black text-[var(--catalog-ink)]">Propiedad no disponible</h1>
+      <p class="mt-3 text-sm leading-6 text-[var(--catalog-muted)]">
+        Esta propiedad puede estar pendiente de publicar o ya no estar activa en el catálogo.
+      </p>
+      <div class="mt-6 flex flex-wrap justify-center gap-3">
+        <a class="btn catalog-btn-secondary" routerLink="/propiedades">Ver catálogo</a>
+        <a class="btn catalog-btn-primary" [href]="contactHref()" target="_blank" rel="noopener">
+          Contáctanos
         </a>
       </div>
-    </aside>
-  </div>
+    </div>
+  }
 </section>
