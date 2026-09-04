@@ -8,6 +8,8 @@ Use these settings when importing the GitHub repository in Cloudflare:
 
 - Repository: `JoseMi317/nuryCatalog`
 - Production branch: `feat/mainPage` for this first publish
+- Worker name: `catalogo`
+- Workers subdomain: `nurygt`
 - Path: `/nury_catalog`
 - Build command: `npm run build`
 - Deploy command: `npx wrangler deploy`
@@ -17,4 +19,4 @@ The Supabase publishable key is safe to expose in the browser. Do not commit sec
 
 No environment variables are required for the current build because the public Supabase URL and publishable key are already in the frontend environment file.
 
-After the first deployment, Cloudflare will provide a `*.workers.dev` URL. Later, the production branch can be changed to `main` once the work is merged.
+The current target URL is `https://catalogo.nurygt.workers.dev`. Later, the production branch can be changed to `main` once the work is merged.
